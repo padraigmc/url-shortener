@@ -1,33 +1,45 @@
 package handler
 
 import (
+    "fmt"
     "net/http"
     "math/rand"
-    // "encoding/json"
-    "io/ioutil"
+    "encoding/json"
     log "github.com/sirupsen/logrus"
-    // "github.com/padraigmc/url-shortener/model"
+    "github.com/padraigmc/url-shortener/model"
 )
 
-func ShortenLink(w http.ResponseWriter, r *http.Request) {
-    log.Debug("/link/shorted")
-	var shortId = generateShortId(5)
-    var shortUrl = "short.en/" + shortId
-    requestBody, _ := ioutil.ReadAll(r.Body)
-    log.Debug(requestBody)
-    log.Debug(shortUrl)
-    
-    // link := model.NewLink(r.URL.Host, r.URL.RequestURI(), shortUrl, shortId)
+var urlAlphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-    // json.Marshal(link)
+func ShortenLink(w http.ResponseWriter, r *http.Request) {	
+    log.Debug(fmt.Sprintf("%s request recieved to %s from %s", r.Method, r.RequestURI, r.RemoteAddr))
+
+    // decode json in request body
+    var link model.Link
+    err := json.NewDecoder(r.Body).Decode(&link)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusBadRequest)
+        return
+    }
+
+    // generate url id
+    var shortId = generateShortId(5)
+    link.ShortId = shortId
+    link.ShortUrl = "short.en/" + shortId
+
+    log.Debug(fmt.Sprintf("URL '%s' mapped to %s", link.Url, link.ShortUrl))
+
+    // write response
+    w.Header().Set("Content-Type", "application/json")
+    w.WriteHeader(http.StatusCreated)
+    json.NewEncoder(w).Encode(link)
 }
 
-var letterRunes = []rune("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
-
+// generate a string a length 'length' using aplphabet specified in 'urlAlphabet'
 func generateShortId(length int) string {
-    b := make([]rune, length)
+    b := make([]byte, length)
     for i := range b {
-        b[i] = letterRunes[rand.Intn(len(letterRunes))]
+        b[i] = urlAlphabet[rand.Intn(len(urlAlphabet))]
     }
     return string(b)
 }
