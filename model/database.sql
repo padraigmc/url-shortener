@@ -1,4 +1,4 @@
-CREATE DATABASE [IF NOT EXISTS] `url_shortner`;
+CREATE DATABASE IF NOT EXISTS `url_shortner`;
 USE DATABASE `url_shortner`
 
 CREATE TABLE Link (
