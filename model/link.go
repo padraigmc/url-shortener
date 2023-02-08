@@ -10,6 +10,7 @@ type Link struct {
 	Url				string	`json:"url,omitempty"`
 	ShortUrl		string	`json:"short_url,omitempty"`
 	ShortId			string	`json:"short_id,omitempty"`
+	Clicks			int		`json:"clicks,omitempty"`
 }
 
 func NewLink(domain string, longUrl string, shortUrl string, shortId string) *Link {
