@@ -1,5 +1,5 @@
 CREATE DATABASE IF NOT EXISTS `url_shortner`;
-USE DATABASE `url_shortner`
+USE `url_shortner`
 
 CREATE TABLE Link (
     Id int NOT NULL AUTO_INCREMENET,
