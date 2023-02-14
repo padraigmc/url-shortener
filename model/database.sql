@@ -1,12 +1,13 @@
-CREATE DATABASE IF NOT EXISTS `url_shortner`;
-USE `url_shortner`
+CREATE DATABASE IF NOT EXISTS `url_shortener`;
 
-CREATE TABLE Link (
-    Id int NOT NULL AUTO_INCREMENET,
-    Domain varchar(20) NOT_NULL,
-    Url varchar(50) NOT_NULL,
-    ShortUrl varchar(20) NOT_NULL,
-    ShortId varchar(10) NOT_NULL PRIMARY KEY,
-    Clicks int DEFAULT 0
-    Created DATE GETDATE()
+USE `url_shortener`;
+
+CREATE TABLE IF NOT EXISTS Link (
+    Id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Domain varchar(20) NOT NULL,
+    Url varchar(50) NOT NULL,
+    ShortUrl varchar(20) NOT NULL,
+    ShortId varchar(10) NOT NULL,
+    Clicks int DEFAULT 0,
+    Created DATETIME DEFAULT NOW()
 );
