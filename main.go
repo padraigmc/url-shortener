@@ -20,7 +20,7 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 
 	// create database connection
-	config := config.GetConfig()
+	config := config.NewConfig()
 	db, err := gorm.Open(mysql.Open(config.GetDBUri()), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Could not connect database")
@@ -34,7 +34,7 @@ func main() {
 	myRouter.HandleFunc("/link/shorten", linkHandler.ShortenLink)
 	myRouter.HandleFunc("/link/{shortId:.*}", linkHandler.GetLinkFromShortUrl)
 	
-	address := "localhost:10000"
+	address := config.Server.Host + ":" + config.Server.Port
 	log.Info("Shorten URL starting on " + address)
 	log.Fatal(http.ListenAndServe(address, myRouter))
 }

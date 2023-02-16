@@ -1,0 +1,14 @@
+# Server configurations
+server:
+  host: "0.0.0.0"
+  port: 8080
+
+# Database credentials
+database:
+  dialect: "mysel"
+  host: "url-shortener-database-1.ch8t8lotsnfu.eu-west-1.rds.amazonaws.com"
+  port: 3306
+  username: "admin"
+  password: "password"
+  db_name: "url_shortener"
+  charset: "utf8"
