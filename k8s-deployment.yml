@@ -13,6 +13,8 @@ spec:
       labels:                     # The labels that will be applied to all of the pods in this deployment
         app: url-shortener 
     spec:                         # Spec for the container which will run in the Pod
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
       containers: 
       - name: url-shortener-api
         image: padraigmc/url-shortener-api:1.0.0
@@ -42,7 +44,7 @@ metadata:
 spec:
   selector:
     app: url-shortener              # Map any pod with label `app=url-shortener` to this service
-  type: NodePort                    # A port is opened on each node in your cluster via Kube proxy.
+  type: LoadBalancer
   ports:                            # Take incoming HTTP requests on port 8080 and forward them to the targetPort of 8080
   - name: http
     port: 8080
