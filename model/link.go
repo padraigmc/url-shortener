@@ -1,8 +1,8 @@
 package model
 
 import (
-	"github.com/jinzhu/gorm"
-	_ "github.com/go-sql-driver/mysql"
+	"gorm.io/gorm"
+	_ "gorm.io/driver/mysql"
 )
 
 type Link struct {
@@ -14,9 +14,3 @@ type Link struct {
 	ShortId			string		`gorm:"not null" json:"short_id,omitempty"`
 	Clicks			int			`gorm:"default:0;not null" json:"clicks,omitempty"`
 }
-
-// func DBMigrate(db *gorm.DB) *gorm.DB {
-// 	db.AutoMigrate(&Link{})
-
-// 	return db
-// }

@@ -10,7 +10,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/padraigmc/url-shortener/model"
 	log "github.com/sirupsen/logrus"
-	"gorm.io/gorm"
+    "gorm.io/gorm"
 )
 
 var urlAlphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"

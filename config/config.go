@@ -10,18 +10,19 @@ import (
 
 type Config struct {
 	Server struct {
-		Host	string		`yaml:"host", envconfig:"SERVER_HOST"`
-		Port	string 		`yaml:"port", envconfig:"SERVER_PORT"`
+		Host	string		`yaml:"host" envconfig:"SERVER_HOST"`
+		Port	string 		`yaml:"port" envconfig:"SERVER_PORT"`
 	} `yaml:"server"`
 
 	Database struct {
-		Dialect  string		`yaml:"dialect"`
-		Host     string		`yaml:"host", envconfig:"DB_HOST"`
-		Port     int		`yaml:"port", envconfig:"DB_PORT"`
-		Username string		`yaml:"username", envconfig:"DB_USERNAME"`
-		Password string		`yaml:"password", envconfig:"DB_PASSWORD"`
-		DBName   string		`yaml:"db_name"`
-		Charset  string		`yaml:"charset"`
+		Dialect  		string		`yaml:"dialect"`
+		Host     		string		`yaml:"host" envconfig:"DB_HOST"`
+		Port     		int			`yaml:"port" envconfig:"DB_PORT"`
+		Username 		string		`yaml:"username" envconfig:"DB_USERNAME"`
+		Password 		string		`yaml:"password" envconfig:"DB_PASSWORD"`
+		DBName   		string		`yaml:"db_name"`
+		Charset  		string		`yaml:"charset"`
+		Region  		string		`yaml:"region"`
 	} `yaml:"database"`
 }
 
@@ -53,7 +54,7 @@ func (config *Config) readEnv() {
     }
 }
 
-func (config *Config) GetDBUri() string {
+func (config *Config) GetDbDSN() string {
 	return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=True",
 		config.Database.Username,
 		config.Database.Password,

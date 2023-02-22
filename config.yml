@@ -5,10 +5,9 @@ server:
 
 # Database credentials
 database:
-  dialect: "mysel"
-  host: "url-shortener-database-1.ch8t8lotsnfu.eu-west-1.rds.amazonaws.com"
+  dialect: "mysql"
+  host: "url-shortener.ch8t8lotsnfu.eu-west-1.rds.amazonaws.com"
   port: 3306
-  username: "admin"
-  password: "password"
   db_name: "url_shortener"
   charset: "utf8"
+  region: "eu-west-1"
