@@ -77,7 +77,19 @@ func (h *LinkHandler) GetLinkFromShortUrl(w http.ResponseWriter, r *http.Request
 
 	if err := h.DB.First(&link, model.Link{ShortId: shortId}).Error; err != nil {
         respondJSON(w, http.StatusNotFound, map[string]string{"error": err.Error()})
-	}
+	} else {
+	    respondJSON(w, http.StatusOK, link)
+    }
+}
 
-	respondJSON(w, http.StatusOK, link)
+func (h *LinkHandler) RedirectToFullUrl(w http.ResponseWriter, r *http.Request) {
+	link := model.Link{}
+	vars := mux.Vars(r)
+	shortId := vars["shortId"]
+
+	if err := h.DB.First(&link, model.Link{ShortId: shortId}).Error; err != nil {
+        respondJSON(w, http.StatusNotFound, map[string]string{"error": err.Error()})
+	} else {
+        http.Redirect(w, r, link.Url, http.StatusPermanentRedirect)
+    }
 }

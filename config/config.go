@@ -20,7 +20,7 @@ type Config struct {
 		Port     		int			`yaml:"port" envconfig:"DB_PORT"`
 		Username 		string		`yaml:"username" envconfig:"DB_USERNAME"`
 		Password 		string		`yaml:"password" envconfig:"DB_PASSWORD"`
-		DBName   		string		`yaml:"db_name"`
+		DBName   		string		`yaml:"db_name"  envconfig:"DB_NAME"`
 		Charset  		string		`yaml:"charset"`
 		Region  		string		`yaml:"region"`
 	} `yaml:"database"`

@@ -31,11 +31,12 @@ func main() {
 		log.Fatal("Could not connect database")
 	}
 
-	db.Migrator().DropTable(&model.Link{})
+	//db.Migrator().DropTable(&model.Link{})
 	db.Debug().AutoMigrate(&model.Link{})
 	linkHandler := handler.LinkHandler{DB: db}
 
 	myRouter := mux.NewRouter().StrictSlash(true)
+	myRouter.HandleFunc("/{shortId}", linkHandler.RedirectToFullUrl)
 	myRouter.HandleFunc("/link/shorten", linkHandler.ShortenLink)
 	myRouter.HandleFunc("/link/{shortId:.*}", linkHandler.GetLinkFromShortUrl)
 	myRouter.HandleFunc("/healthz", handler.Healthz)
